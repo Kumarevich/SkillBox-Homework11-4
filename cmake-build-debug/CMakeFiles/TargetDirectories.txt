@@ -1,0 +1,3 @@
+C:/Users/Igor Makarevich/CLionProjects/Homework 11-4/cmake-build-debug/CMakeFiles/Homework_11_4.dir
+C:/Users/Igor Makarevich/CLionProjects/Homework 11-4/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Igor Makarevich/CLionProjects/Homework 11-4/cmake-build-debug/CMakeFiles/rebuild_cache.dir
