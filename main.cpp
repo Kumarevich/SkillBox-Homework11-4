@@ -5,9 +5,9 @@ bool check_number(std::string num) {
     int l = num.length() - 1;
     bool point = false;
     for (int i = 0; i <= l; ++i) {
-        if (num[i] < 45 || num[i] > 57 || num[i] == 47 || (num[i] == 46 && point) || (num[i] == 45 && i > 0)) {
+        if (num[i] < '-' || num[i] > '9' || num[i] == '/' || (num[i] == '.' && point) || (num[i] == '-' && i > 0)) {
             return false;
-        } else if (num[i] == 46) {
+        } else if (num[i] == '.') {
             point = true;
         }
     }
@@ -17,7 +17,7 @@ bool check_number(std::string num) {
 int point_pos(std::string num) {
     int l = num.length();
     for (int i = 0; i < l; ++i) {
-        if (num[i] == 46) {
+        if (num[i] == '.') {
             return i;
         }
     }
@@ -27,7 +27,7 @@ int point_pos(std::string num) {
 int part(std::string num, int startPoint, int endPoint){
     std::string partNumStr = "";
     int sign = 1;
-    if (num[startPoint] == 45) {
+    if (num[startPoint] == '-') {
         sign = -1;
         ++startPoint;
     }
@@ -44,7 +44,7 @@ std::string compare(std::string one, std::string two) {
         oneFrac = part(one, point_pos(one) + 1, one.length());
     }
     if (oneInt < 0) {
-        oneFrac *= -1;
+        oneFrac = -oneFrac;
     }
     int twoInt = part(two, 0, point_pos(two));
     int twoFrac = 0;
@@ -52,7 +52,7 @@ std::string compare(std::string one, std::string two) {
         twoFrac = part(two, point_pos(two) + 1, two.length());
     }
     if (twoInt < 0) {
-        twoFrac *= -1;
+        twoFrac = -twoFrac;
     }
     if (oneInt > twoInt || (oneInt == twoInt && oneFrac > twoFrac)) {
         return "More";
