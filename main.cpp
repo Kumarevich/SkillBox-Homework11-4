@@ -37,19 +37,48 @@ int part(std::string num, int startPoint, int endPoint){
     return std::stoi(partNumStr) * sign;
 }
 
+std::string fracPart (std::string full, int point) {
+    int l = full.length() - 1;
+    std::string partFrac = "";
+    if (point <= l) {
+        for (int i = point + 1; i <= l; ++i) {
+            partFrac += full[i];
+        }
+        return partFrac;
+    } else {
+        return ("0");
+    }
+}
+
+std::string equalParts (std::string part, int l) {
+    while (part.length() < l) {
+        part += '0';
+    }
+    return part;
+}
+
 std::string compare(std::string one, std::string two) {
-    int oneInt = part(one, 0, point_pos(one));
+    int pointOne = point_pos(one);
+    int pointTwo = point_pos(two);
+    std::string oneFracStr = fracPart(one, pointOne);
+    std::string twoFracStr = fracPart(two, pointTwo);
+    if (oneFracStr.length() < twoFracStr.length()) {
+        oneFracStr = equalParts(oneFracStr, twoFracStr.length());
+    } else if (oneFracStr.length() > twoFracStr.length()) {
+        twoFracStr = equalParts(twoFracStr, oneFracStr.length());
+    }
+    int oneInt = part(one, 0, pointOne);
     int oneFrac = 0;
-    if (point_pos(one) != one.length()) {
-        oneFrac = part(one, point_pos(one) + 1, one.length());
+    if (pointOne != one.length()) {
+        oneFrac = part(oneFracStr, 0, oneFracStr.length());
     }
     if (oneInt < 0) {
         oneFrac = -oneFrac;
     }
-    int twoInt = part(two, 0, point_pos(two));
+    int twoInt = part(two, 0, pointTwo);
     int twoFrac = 0;
-    if (point_pos(two) != two.length()) {
-        twoFrac = part(two, point_pos(two) + 1, two.length());
+    if (pointTwo != two.length()) {
+        twoFrac = part(twoFracStr, 0, twoFracStr.length());
     }
     if (twoInt < 0) {
         twoFrac = -twoFrac;
